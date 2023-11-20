@@ -1,26 +1,30 @@
-# splunk-evtx-onthefly
-Deploy a Splunk, convert EVTXs, send Splunk in 2 minutes.
+# evtx2splunk docker
 
-*Note: It depends on your connection speed :)*
+Deploy a Splunk, convert EVTXs, send in Splunk.
 
-*Note 2: If you are using Apple Silicon processors (M1, M2), unfortunetaly you cannot use this repo because Splunk's docker image does not support M1-M2.*
+*Note : If you are using Apple Silicon processors (M1, M2), unfortunetaly you cannot use this repo because Splunk's docker image does not support M1-M2.*
 
-### Usage
+## Usage
 
 *It requires docker compose installation.*
 
 1. Put your evtx files into "evtx_files" directory.
-2. Run `docker compose up` in the main directory.
+2. Run `docker compose up -d` in the main directory.
 
-It will download some images from Docker Hub and deploy a Splunk environment that already contains evtx logs.
+It will download some images from Docker Hub and deploy a Splunk environment.
 
 To reach Splunk, go to http://localhost:8000
 
-Username: admin
+- Username: admin
+- Password: password
 
-Password: evtxonthefly
+### Push logs
 
-Data can be searched by using ``index=wineventlog``.
+```shell
+$ docker exec -it evtx_converter python3 /evtx2splunk/evtx2splunk.py --input evtx_files --index <index_name>
+```
+
+## Screenshot
 
 ![Windows logs](./images/logs.png)
 
@@ -28,6 +32,7 @@ The Splunk also contains a main dashboard that shows some data about your evtx f
 
 ![Splunk EVTX Dashboard](./images/dashboard.png)
 
-#### To destroy environment
+## Credits
 
-Stop docker compose by pressing CTRL + C.
+- [evtx2splunk](https://github.com/whikernel/evtx2splunk) : For more information about the evtx2splunk script
+- [splunk-evtx-onthefly](https://github.com/krdmnbrk/splunk-evtx-onthefly)

@@ -16,5 +16,4 @@ RUN echo "SPLUNK_MPORT = ${SPLUNK_MPORT}" >> .env
 RUN echo "SPLUNK_SSL = ${SPLUNK_SSL}" >> .env
 RUN echo "SPLUNK_USER = ${SPLUNK_USER}" >> .env
 RUN echo "SPLUNK_PASS = ${SPLUNK_PASS}" >> .env
-COPY evtx_files /evtx2splunk/evtx_files
-CMD [ "python", "evtx2splunk.py", "--input", "evtx_files", "--index", "wineventlog" ]
+CMD ["tail", "-f", "/dev/null"]

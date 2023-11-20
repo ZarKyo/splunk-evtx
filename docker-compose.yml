@@ -6,7 +6,7 @@ services:
     container_name: splunk
     environment:
       - SPLUNK_START_ARGS=--accept-license
-      - SPLUNK_PASSWORD=evtxonthefly
+      - SPLUNK_PASSWORD=password
     ports:
       - 8000:8000
       - 8088
@@ -26,9 +26,12 @@ services:
       - SPLUNK_MPORT=8089
       - SPLUNK_SSL=False
       - SPLUNK_USER=admin
-      - SPLUNK_PASS=evtxonthefly
+      - SPLUNK_PASS=password
+    volumes:
+      - ./evtx_files:/evtx2splunk/evtx_files
     depends_on:
       splunk:
         condition: service_healthy
     links:
       - splunk
+    restart: always
